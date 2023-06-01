@@ -1,0 +1,61 @@
+// C++ code
+//
+#define lamba 13
+#define Gazalert 12
+#define tmp A4
+#define gaz A3
+#define buzzer 7
+int sicaklikOku,derece;
+int gazOku;
+
+void setup()
+{
+  pinMode(lamba, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+  pinMode(Gazalert, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  
+  
+  digitalWrite(lamba, HIGH);
+  delay(1000); // Wait for 1000 millisecond(s)
+  digitalWrite(lamba, LOW);
+  delay(1000); // Wait for 1000 millisecond(s)
+  
+  sicaklikOku = analogRead(tmp);
+  derece = ((sicaklikOku*4.88)-500)/10;
+  Serial.println(derece);
+  if(derece<=0)
+  {
+    Serial.println("Ortam Soguk lutfen isiyi yukseltin");
+  }
+  else if(derece<37 && derece>0)
+  {
+    Serial.println("Ortam ilik");
+  }
+  else
+  {
+    Serial.println("Ortam sicak");
+  }
+  delay(100);
+  
+  
+  gazOku=analogRead(gaz);
+  Serial.println(gazOku);
+  
+  if(gazOku!=0)
+  {
+    //Serial.println("Gaz tespit edildi! Acil durum lambasi Yaniyor");
+    //digitalWrite(Gazalert, HIGH);
+    //tone(buzzer,1);
+  }
+  else
+  {
+    Serial.println("Gaz kacagi yok Guvendesiniz!");
+  }
+  delay(100);
+  Serial.println("-------------------");
+}
